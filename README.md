@@ -1,5 +1,5 @@
-Chat p2p using Drb
-==================
+Chat p2p using Drb server based
+================================
 
 * Daniel Múnera Sánchez
 * Ernesto Javier Quintero
