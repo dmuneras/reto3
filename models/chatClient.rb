@@ -5,10 +5,7 @@ class ChatClient < ServerClient
 
   attr_accessor :chat
   def initialize(nickname,host,port,status)
-    @nickname = nickname
-    @status = status
-    @online = true
-    self.chat = Chat.new
+    @nickname, @status, @online, self.chat = nickname, status, true , Chat.new
     @uri = self.chat.address 
     register(nickname,host,port)
     write_from_server  

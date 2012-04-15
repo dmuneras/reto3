@@ -9,9 +9,10 @@ class ServerClient
       puts connecting host
       @socket = TCPSocket.new(host,port) 
       raise Exception.new("I can't bind the socket") if @socket.nil?
-      @socket.write("register_info: #{nickname} #{@status} #{@uri}\n")
+      @socket.write "register_info: #{nickname} #{@status} #{@uri}\n"     
     rescue => e
-      return false
+      puts connection_failed
+      exit 0
     end
   end
   
@@ -27,8 +28,7 @@ class ServerClient
     elsif !(user_entry =~ /to_s: /)
       user_entry = user_entry.strip.split("=> ")
       @socket.write("to_s: translate #{user_entry[1]}\n")
-      @current_msg = user_entry[0]
-      @current_rcv = user_entry[1]
+      @current_msg, @current_rcv = user_entry[0], user_entry[1]
     else
       puts nothing_to_send
     end
@@ -41,6 +41,7 @@ class ServerClient
           if @socket.eof?
             @socket.close
             puts server_down
+            @online = false
             break
           end
           msg =  @socket.gets.chop

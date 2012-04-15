@@ -8,6 +8,9 @@ module UserMsgs
     return "Trying to connect: " + host  
   end
 
+  def connection_failed
+    return "Connection failed, try later"
+  end
   def nothing_to_send
     return "Please enter something to send"
   end

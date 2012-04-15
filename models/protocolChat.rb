@@ -62,8 +62,12 @@ module ProtocolChat
   end
   
   def change_status(status,sock)
-    @@users[@descriptors.index(sock)-1][:status] = status
-    sock.write("Now your status is #{status}\n")
+    if @@status.include? status
+      @@users[@descriptors.index(sock)-1][:status] = status
+      sock.write("Now your status is #{status}\n")
+    else
+      sock.write("Wrong status, #{list_to_print('Available status', @@status)}")
+    end
   end
     
 end
