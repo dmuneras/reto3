@@ -29,6 +29,9 @@ class DirServer
             end
           end
         end
+      rescue SystemExit, Interrupt
+        puts "Service stopped"
+        exit 0
       rescue => e
         puts "Somenthing wrong happened #{e}"
       end

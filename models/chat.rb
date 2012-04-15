@@ -5,11 +5,11 @@ class Chat
   include DRb::DRbUndumped
   attr_accessor :buffer, :address
   
-  def initialize(addr)
+  def initialize
     self.buffer = []
-    self.address = addr 
-    DRb.start_service(addr, self)
-    puts "Chat service started on address #{addr}"
+    DRb.start_service(nil, self)
+    addrs = DRb.uri.gsub(/\/\/(.*):/,"//"+local_ip+":")
+    self.address = addrs
   end
     
   def new_entry(nickname,current_rcv,msg)
@@ -25,6 +25,16 @@ class Chat
     end
   end
   
+  def local_ip
+    orig, Socket.do_not_reverse_lookup = Socket.do_not_reverse_lookup, true  # turn off reverse DNS resolution temporarily
+    UDPSocket.open do |s|
+      s.connect '64.233.187.99', 1
+      s.addr.last
+    end
+  ensure
+    Socket.do_not_reverse_lookup = orig
+  end
+
   def stop
     DRb.stop_service
   end
