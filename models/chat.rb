@@ -19,7 +19,7 @@ class Chat
   def print_msgs(owner)
     for msg in @buffer 
       if msg[:read] == false
-        puts "~> #{msg[:from]} says at #{msg[:time].strftime('%B %d , %H:%M:%S')} => #{msg[:msg]}" 
+        puts "~> #{msg[:from]} said at #{msg[:time].strftime('%B %d , %H:%M:%S')} => #{msg[:msg]}" 
         msg[:read] = true
       end
     end
