@@ -15,11 +15,11 @@ class Chat
   def new_entry(nickname,current_rcv,msg)
     @buffer.push({:from => nickname, :to => current_rcv, :msg => msg, :time => Time.now, :read => false})
   end
-  
+    
   def print_msgs(owner)
     for msg in @buffer 
       if msg[:read] == false
-        puts "#{msg[:from]} says at #{msg[:time]} => #{msg[:msg]}" 
+        puts "~> #{msg[:from]} says at #{msg[:time].strftime('%B %d , %H:%M:%S')} => #{msg[:msg]}" 
         msg[:read] = true
       end
     end

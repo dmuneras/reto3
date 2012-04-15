@@ -22,6 +22,7 @@ class DirServer
               accept_new_connection
             elsif sock.eof? 
               sock.close
+              @@users.delete(@@users[@descriptors.index(sock)-1])
               @descriptors.delete(sock)
             else
               umsg = sock.gets()
