@@ -1,7 +1,7 @@
 module UserMsgs
 
   def user_help
-    return "To send message to de server. write: to_s: <command> , to send message to an user, <msg> => <username>"
+    return "To send message to the server. write: to_s: <command> , to send message to an user, <msg> => <username>"
   end
 
   def connecting host
@@ -38,4 +38,5 @@ module UserMsgs
     return "    User's List\n    =======\n" +
       (users.collect {|user| "    ~~> #{user[:username]}(#{user[:status]})"}).join("\n")
   end
+  
 end

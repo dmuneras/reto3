@@ -56,15 +56,22 @@ module ProtocolChat
     username = msg[2]
     for user in @@users
       if(username.eql? user[:username])
-        sock.write("translate: #{user[:address]}\n")
+        sock.write("translate: #{user[:address]} #{user[:status]}\n")
+        return
       end
     end
+    sock.write("translate: wrong\n")  
   end
   
   def change_status(status,sock)
-    if @@status.include? status
-      @@users[@descriptors.index(sock)-1][:status] = status
+    if @@status.include? status 
+      current_user = @@users[@descriptors.index(sock)-1]
+      current_user[:status] = status
       sock.write("Now your status is #{status}\n")
+      for user in @descriptors
+        next if  user == @serverSocket 
+        user.write("status: #{current_user[:username]} #{status}\n")
+      end
     else
       sock.write("Wrong status, #{list_to_print('Available status', @@status)}")
     end
