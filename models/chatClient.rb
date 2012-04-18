@@ -7,7 +7,7 @@ class ChatClient
 
   include UserMsgs
   attr_accessor :chat
-  
+
   def initialize(nickname,host,port,status)
     @nickname, @status, @online, self.chat = nickname, status, true , Chat.new
     @uri = self.chat.address 
