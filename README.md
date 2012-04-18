@@ -30,7 +30,7 @@ COMANDOS DISPONIBLES
 
 * Para comunicarse con el servidor:
 
-**to_s: **<commando> <parametro> 
+**to_s:** <commando> <parametro> 
 	
 **comandos:** users, status, help
 
